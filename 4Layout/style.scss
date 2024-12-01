@@ -1,0 +1,246 @@
+$font-primary: "Helvetica Neue", -apple-system, sans-serif;
+$font-heading: "Playfair Display", serif;
+$font-accent: "Montserrat", sans-serif;
+
+$color-text: #333;
+$color-text-light: #666;
+$color-text-body: #444;
+$color-border: #eee;
+$color-black: #000;
+$color-bg: #fafafa;
+$color-white: #fff;
+
+$transition: all 0.3s ease;
+$box-shadow: 0 0 40px rgba(0, 0, 0, 0.03);
+
+@mixin flex($direction: row, $gap: 0) {
+  display: flex;
+  flex-direction: $direction;
+  @if $gap != 0 {
+    gap: $gap;
+  }
+}
+
+@mixin grid($columns, $gap: 0) {
+  display: grid;
+  grid-template-columns: $columns;
+  @if $gap != 0 {
+    gap: $gap;
+  }
+}
+
+@mixin hover-border($color: $color-black) {
+  border: 1px solid $color-border;
+  transition: $transition;
+  &:hover {
+    border-color: $color;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $font-primary;
+  background-color: $color-bg;
+  color: $color-text;
+  line-height: 1.6;
+  padding: 20px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: $color-white;
+  padding: 40px;
+  box-shadow: $box-shadow;
+}
+
+header {
+  text-align: center;
+  padding: 0 0 40px;
+  margin-bottom: 60px;
+  border-bottom: 2px solid $color-black;
+}
+
+.logo {
+  font-family: $font-accent;
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: 8px;
+}
+
+.content {
+  @include grid(1fr 300px, 60px);
+}
+
+.articles {
+  @include flex(column, 80px);
+}
+
+.post {
+  @include grid(300px 1fr, 30px);
+  @include hover-border;
+  padding: 20px;
+  position: relative;
+
+  &:nth-child(2) {
+    grid-template-columns: 1fr;
+
+    .post-images {
+      @include flex(row, 20px);
+      margin-bottom: 20px;
+    }
+
+    .post-image {
+      flex: 1;
+    }
+  }
+
+  &::before {
+    content: "01";
+    position: absolute;
+    top: -10px;
+    right: 20px;
+    font-family: $font-heading;
+    font-size: 14px;
+    color: $color-black;
+    background: $color-white;
+    padding: 0 10px;
+  }
+
+  &:nth-child(2)::before {
+    content: "02";
+  }
+  &:nth-child(3)::before {
+    content: "03";
+  }
+
+  &-image {
+    overflow: hidden;
+    border: 1px solid $color-border;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+  }
+
+  &:hover {
+    .post-image img {
+      transform: scale(1.05);
+    }
+
+    h2::after {
+      width: 100px;
+    }
+  }
+
+  &-content {
+    @include flex(column, 15px);
+  }
+
+  &-meta {
+    font-size: 14px;
+    color: $color-text-light;
+    font-family: $font-primary;
+    letter-spacing: 1px;
+  }
+}
+
+h2 {
+  font-family: $font-heading;
+  font-size: 24px;
+  font-weight: 500;
+  position: relative;
+  padding-bottom: 15px;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background: $color-black;
+    transition: width 0.3s ease;
+  }
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: $color-text-body;
+}
+
+.sidebar {
+  position: sticky;
+  top: 20px;
+  align-self: start;
+  border-left: 1px solid $color-border;
+  padding-left: 40px;
+
+  &-section {
+    margin-bottom: 50px;
+
+    h3 {
+      font-family: $font-accent;
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid $color-black;
+      letter-spacing: 2px;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    li {
+      padding: 12px 0;
+      cursor: pointer;
+      transition: $transition;
+      border-bottom: 1px solid transparent;
+
+      &:hover {
+        border-bottom-color: $color-black;
+        padding-left: 10px;
+      }
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: static;
+    border-left: none;
+    border-top: 2px solid $color-black;
+    padding: 40px 0 0;
+    margin-top: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .post {
+    grid-template-columns: 1fr;
+
+    &:nth-child(2) .post-images {
+      flex-direction: column;
+    }
+  }
+
+  .container {
+    padding: 20px;
+  }
+}

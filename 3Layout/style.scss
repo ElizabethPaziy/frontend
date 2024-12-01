@@ -1,0 +1,259 @@
+$color-hover: #8b4513;
+$color-text: #333;
+$color-border: #eee;
+$shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+$transition: all 0.3s ease;
+
+$font-primary: "Helvetica Neue", -apple-system, sans-serif;
+$font-heading: "Playfair Display", serif;
+$font-logo: "Montserrat", sans-serif;
+
+@mixin flex($direction: row) {
+  display: flex;
+  flex-direction: $direction;
+}
+
+@mixin hover-border {
+  transition: $transition;
+  &:hover {
+    border-color: $color-hover;
+  }
+}
+
+@mixin section-spacing {
+  margin: 60px 0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $font-primary;
+  background-color: white;
+  padding: 20px;
+  line-height: 1.6;
+  color: $color-text;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+  padding: 20px;
+}
+
+header {
+  @include flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  margin-bottom: 40px;
+  border-bottom: 1px solid $color-border;
+}
+
+.logo {
+  font-family: $font-logo;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.sign-in-btn {
+  padding: 10px 25px;
+  border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+  transition: $transition;
+
+  &:hover {
+    border-color: $color-hover;
+    color: $color-hover;
+  }
+}
+
+.hero {
+  margin-bottom: 60px;
+  overflow: hidden;
+
+  &-content {
+    float: left;
+    width: 40%;
+    padding-right: 40px;
+
+    h1 {
+      font-family: $font-heading;
+      margin-bottom: 20px;
+      font-size: 2.5em;
+      font-weight: 500;
+    }
+  }
+
+  &-image {
+    float: right;
+    width: 60%;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+}
+
+.cta-button {
+  padding: 12px 30px;
+  background: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: $transition;
+  font-family: $font-primary;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+
+  &:hover {
+    background: $color-hover;
+  }
+}
+
+.features {
+  clear: both;
+  @include flex;
+  gap: 25px;
+  margin-bottom: 60px;
+}
+
+.feature-box {
+  flex: 1;
+  border: 1px solid $color-border;
+  padding: 25px;
+  @include hover-border;
+
+  h2 {
+    font-family: $font-heading;
+    margin-bottom: 15px;
+    font-weight: 500;
+  }
+}
+
+.register-section {
+  text-align: center;
+  margin: 40px 0;
+}
+
+.guide-section {
+  @include section-spacing;
+
+  h2 {
+    font-family: $font-heading;
+    text-align: center;
+    margin-bottom: 40px;
+    font-weight: 500;
+  }
+}
+
+.steps {
+  @include flex;
+  flex-wrap: wrap;
+  gap: 25px;
+}
+
+.step {
+  width: calc(33.333% - 17px);
+  border: 1px solid $color-border;
+  padding: 25px;
+  @include flex;
+  gap: 20px;
+  @include hover-border;
+
+  &-number {
+    font-family: $font-heading;
+    font-size: 32px;
+    font-weight: 500;
+  }
+
+  &-content {
+    h3 {
+      font-family: $font-primary;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+footer {
+  margin-top: 60px;
+  border-top: 1px solid $color-border;
+  padding-top: 40px;
+}
+
+.footer-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  td {
+    padding: 20px;
+    vertical-align: top;
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  li {
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: $transition;
+
+    &:first-child {
+      font-weight: 500;
+      margin-bottom: 15px;
+    }
+
+    &:not(:first-child) {
+      &:hover {
+        color: $color-hover;
+      }
+    }
+  }
+}
+
+.footer-logo {
+  font-family: $font-logo;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    &-content,
+    &-image {
+      float: none;
+      width: 100%;
+      padding-right: 0;
+      margin-bottom: 30px;
+    }
+  }
+
+  .features {
+    flex-direction: column;
+  }
+
+  .step {
+    width: 100%;
+  }
+
+  .footer-table {
+    display: block;
+
+    tbody,
+    tr,
+    td {
+      display: block;
+      width: 100%;
+      text-align: center;
+    }
+  }
+}
